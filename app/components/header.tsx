@@ -13,7 +13,7 @@ export default function Header() {
     { label: 'Accounts', href: '/accounts' }
   ]
   return (
-    <header className='w-full bg-orange-900 p-4 capitalize text-white'>
+    <header className='mb-4 w-full bg-slate-800 p-4 capitalize text-white'>
       <div className='flex items-center justify-between'>
         <div>
           <Link href='/'>Home</Link>

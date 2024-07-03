@@ -27,7 +27,7 @@ export default function RandomMembers({ strings, count }: RandomMembersProps) {
     <div className='ms-4'>
       {loading ? (
         <div className='flex gap-2'>
-          Generating list...
+          <span className='text-sm font-thin'>Generating list...</span>
           <Spinner color='info' aria-label='Default status example' />
         </div>
       ) : (

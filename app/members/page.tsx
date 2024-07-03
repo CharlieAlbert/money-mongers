@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import { Button } from 'flowbite-react'
-import '../style.css'
 
 export default function Mti() {
   const strings = [
@@ -14,8 +13,9 @@ export default function Mti() {
     'Lorraine',
     'Gracious'
   ]
+
   return (
-    <div className='content container px-2'>
+    <div className='container px-2'>
       <h2>The following is a list of the esteem members of Money Mongers:</h2>
       <ul>
         {strings.map((name, i) => (

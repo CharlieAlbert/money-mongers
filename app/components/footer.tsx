@@ -13,11 +13,7 @@ export function FooterComponent() {
     { label: 'Accounts', href: '/accounts' }
   ]
 
-  function CurrentYear(): number | undefined {
-    const date = new Date()
-    const year = date.getFullYear()
-    return year
-  }
+  const CurrentYear = () => new Date().getFullYear()
 
   return (
     <Footer className='custom-footer'>

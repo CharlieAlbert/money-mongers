@@ -1,0 +1,104 @@
+random.ts
+//  let previouslySelected: string[] = [];
+
+
+// export default function getRandomString(
+//   strings: string[],
+//   count: number
+// ): string[] {
+//   // Filter out excluded strings and previously selected strings
+//   //  const filteredStrings = strings.filter((str) =>!previouslySelected.includes(str));
+//   // Create a Set to store previously selected strings
+// const previouslySelectedSet: Set<string> = new Set(previouslySelected);
+
+// // Filter out strings that have been previously selected
+// const filteredStrings: string[] = strings.filter((str: string) => {
+//   // Return true if the string is not in the previouslySelectedSet
+//   return!previouslySelectedSet.has(str);
+// });
+ 
+
+//   // Check if there are enough strings to fulfill the request
+//   // if (filteredStrings.length < count) {
+//   //   throw new Error(`Not enough strings to fulfill the request. Requested ${count} but only ${filteredStrings.length} available.`);
+//   // }
+
+//   // Shuffle the filtered strings
+//   const shuffled = [...filteredStrings].sort(() => 0.5 - Math.random());
+
+//   // Select the specified number of random strings
+//   const selected = shuffled.slice(0, count);
+
+//   // Add the selected strings to the previously selected array
+//   previouslySelected.push(...selected);
+
+  return selected;
+ }
+
+ randommembers.tsx
+ 'use client'
+
+import { Spinner, Button } from 'flowbite-react'
+import { useEffect, useState } from 'react'
+import getRandomString from '../../utils/random'
+import { useRouter } from 'next/navigation'
+interface RandomMembersProps {
+  strings: string[]
+  count: number
+}
+
+export default function RandomMembers({ strings, count }: RandomMembersProps) {
+  const [loading, setLoading] = useState(true)
+  const [randomStrings, setRandomStrings] = useState<string[]>([])
+  const [previouslySelected, setPreviouslySelected] = useState<string[]>([])
+  const router = useRouter()
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      const generatedStrings = getRandomString (strings.filter((str) =>!previouslySelected.includes(str)), count)
+      setRandomStrings(generatedStrings)
+      setPreviouslySelected([...previouslySelected,...generatedStrings])
+      setLoading(false)
+    }, 3000)
+    return () => clearTimeout(timer)
+  }, [strings, count, previouslySelected])
+
+  const handleRerun = () => {
+    router.refresh()
+  }
+
+  return (
+    <div className='ms-4'>
+      {loading? (
+        <div className='flex gap-2'>
+          <i className='text-sm font-light'>generating list...</i>
+          <Spinner color='info' aria-label='Default status example' />
+        </div>
+      ) : (
+        <div>
+          <h2>Previously Selected Members:</h2>
+          <ul>
+            {previouslySelected.map((name, i) => (
+              <li key={i}>
+                {i + 1}. {name}
+              </li>
+            ))}
+          </ul>
+          <h2>Current Selection:</h2>
+          <ul>
+            {randomStrings.map((name, i) => (
+              <li key={i}>
+                {i + 1}. {name}
+              </li>
+            ))}
+          </ul>
+          <Button className='my-4'>
+            <a onClick={() => router.refresh()} className='capitalize'>
+              re-run voucher
+            </a>
+          </Button>
+        </div>
+      )}
+    </div>
+  )
+}

@@ -7,8 +7,8 @@ export default function Mti() {
     'Charles',
     'Ryan',
     'Alvin',
-    'Lebu',
-    'Sherryl',
+    'Lebuluz',
+    'Sheryl',
     'Shalon',
     'Lorraine',
     'Gracious'
